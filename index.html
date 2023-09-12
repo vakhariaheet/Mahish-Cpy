@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Parcel Sandbox</title>
+		<meta charset="UTF-8" />
+	</head>
+
+	<body>
+		<div >
+            <textarea id="app" name="" id="" cols="30" rows="10"></textarea>
+        </div>
+		<button id="exportButton">Convert</button>
+		<script>
+			function exportTableToExcel(tableId) {
+				// Get the table element using the provided ID
+				const table = document.getElementById(tableId);
+				// Extract the HTML content of the table
+				const html = table.value;
+				// Create a Blob containing the HTML data with Excel MIME type
+				const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
+				// Create a URL for the Blob
+				const url = URL.createObjectURL(blob);
+				// Create a temporary anchor element for downloading
+				const a = document.createElement('a');
+				a.href = url;
+				// Set the desired filename for the downloaded file
+				a.download = 'table.xls';
+				// Simulate a click on the anchor to trigger download
+				a.click();
+				// Release the URL object to free up resources
+				URL.revokeObjectURL(url);
+			}
+			// Attach the function to the export button's click event
+			document
+				.getElementById('exportButton')
+				.addEventListener('click', function () {
+					exportTableToExcel('app');
+				});
+		</script>
+	</body>
+</html>
